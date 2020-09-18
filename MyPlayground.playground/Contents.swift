@@ -224,6 +224,7 @@ print("The number is divisible by \(division[2]) times")
 
 /********************************************************/
 
+/// Type checking and type casting
 class Person {
     var name: String
     var age: Int
