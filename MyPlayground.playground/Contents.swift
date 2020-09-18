@@ -263,3 +263,86 @@ if let stud = tempStudent {
     print(stud.name)
 }
 /********************************************************/
+
+/// Nested types
+class Fooditems {
+    
+    enum FoodTypes {
+        case Fruites
+        case vegetables
+    }
+    
+    class Hotel {
+        var name: String
+        init(name: String) {
+            self.name = name
+        }
+    }
+    
+    var name: String
+    var foodType: FoodTypes
+    var hotel: Hotel
+    
+    init(name: String, foodType: FoodTypes, hotel: Hotel) {
+        self.name = name
+        self.foodType = foodType
+        self.hotel = hotel
+    }
+}
+
+let foodItems = Fooditems(name: "Apple", foodType: .Fruites, hotel: Fooditems.Hotel(name: "Hotel name"))
+print(foodItems.name, foodItems.foodType, foodItems.hotel.name)
+
+/********************************************************/
+
+/// Optional chaining
+struct Engine {
+    var cylinder: Int
+    var maxHorsePower: Int
+}
+class Car {
+    var make: String
+    var engine: Engine?
+    init(make: String, engine: Engine) {
+        self.make = make
+        self.engine = engine
+    }
+    init(make: String) {
+        self.make = make
+    }
+}
+
+let realCar = Car(make: "Audi", engine: Engine(cylinder: 2, maxHorsePower: 1000))
+let toyCar = Car(make: "Audi")
+
+print(realCar.engine?.cylinder as Any)
+print(toyCar.engine?.cylinder as Any)
+
+/********************************************************/
+
+/// Advanced operator - Unsigned integer
+let myNum1: UInt8 = 0b00000000 //0
+let myNum2: UInt8 = ~myNum1
+
+let myNum3: UInt8 = 0b00110010 //50
+let myNum4: UInt8 = 0b10001111 //143
+
+let bitwiseAnd = myNum3 & myNum4 //00000010
+let bitwiseOr = myNum3 | myNum4 //10111111
+let bitwiseXor = myNum3 ^ myNum4 //10111101
+
+/********************************************************/
+
+infix operator **
+/// Operator overloading
+/// - Parameters:
+///   - lhs: left hand side
+///   - rhs: right hand side
+/// - Returns: power value (i.e) 2^3
+func **(lhs: Double, rhs: Double) -> Double {
+    return pow(lhs, rhs)
+}
+
+print(2 ** 3)
+
+/********************************************************/
