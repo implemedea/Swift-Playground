@@ -211,22 +211,55 @@ print(add.c, add.a, add.b)
 /********************************************************/
 
 /// Subscript
-class Day {
-    var days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+struct subexample {
+   let decrementer: Int
+   subscript(index: Int) -> Int {
+      return decrementer / index
+   }
+}
+let division = subexample(decrementer: 100)
+
+print("The number is divisible by \(division[9]) times")
+print("The number is divisible by \(division[2]) times")
+
+/********************************************************/
+
+class Person {
+    var name: String
+    var age: Int
     
-    subscript (index: Int) -> String {
-        get {
-           return days[index]
-        }
-        set(newValue) {
-            self.days[index] = newValue
-        }
+    init(name: String, age: Int) {
+        self.name = name
+        self.age = age
     }
 }
 
-let objDay = Day()
-print(objDay.days[0])
-objDay.days[0] = "Monday"
-print(objDay.days)
+class Student: Person {
+    var number: Int
+    
+    init(name: String, age: Int, number: Int) {
+        self.number = number
+        super.init(name: name, age: age)
+    }
+}
 
+let students = [
+    Student(name: "name1", age: 1, number: 1),
+    Student(name: "name2", age: 2, number: 2),
+    Person(name: "name3", age: 3)
+]
+
+/// "is" type checking
+for person in students {
+    if person is Student {
+        print("obj is student")
+    } else {
+        print("object is person")
+    }
+}
+/// "as" downcasting
+let tempStudent: Student? = students[0] as? Student
+if let stud = tempStudent {
+    print(stud.name)
+}
 /********************************************************/
