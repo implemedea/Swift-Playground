@@ -399,10 +399,10 @@ var mathCalculation: (Int, Int) -> Int = addTwoInts
 
 print(mathCalculation(2,2))
 
-func printMathResult(mathCalculation:(Int, Int) -> Int, a: Int, b: Int) {
-    print(mathCalculation(a,b))
+func printMathResult(mathFunction:(Int, Int) -> Int, a: Int, b: Int) {
+    print(mathFunction(a,b))
 }
 
-printMathResult(mathCalculation: addTwoInts, a: 2, b: 1)
+printMathResult(mathFunction: addTwoInts, a: 2, b: 1)
 
 /********************************************************/
