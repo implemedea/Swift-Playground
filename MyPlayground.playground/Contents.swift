@@ -347,3 +347,62 @@ func **(lhs: Double, rhs: Double) -> Double {
 print(2 ** 3)
 
 /********************************************************/
+
+/// Default parameter
+/// - Parameters:
+///   - firstName: first name
+///   - seperator: seperator
+///   - lastName: last name
+func combineString(firstName: String, seperator: String = "-", lastName: String) {
+    print(firstName+seperator+lastName)
+}
+
+combineString(firstName: "hello", lastName: "world")
+combineString(firstName: "hello", seperator:"+", lastName: "world")
+
+/********************************************************/
+
+/// Variadic parameter
+/// - Parameter numbers: number
+/// - Returns: double
+func arithmeticMean(_ numbers: Double...) -> Double {
+    var total: Double = 0
+    for number in numbers {
+        total += number
+    }
+    return total / Double(numbers.count)
+}
+print(arithmeticMean(3, 8.25, 18.75))
+
+/********************************************************/
+
+/// inout
+/// - Parameter input: input string
+func combineWord(input: inout String) {
+    input = "input changed"
+}
+
+var input = "hello"
+combineWord(input: &input)
+print(input)
+
+/********************************************************/
+
+
+/// Function type
+
+func addTwoInts(_ a: Int, _ b: Int) -> Int {
+return a + b
+}
+
+var mathCalculation: (Int, Int) -> Int = addTwoInts
+
+print(mathCalculation(2,2))
+
+func printMathResult(mathCalculation:(Int, Int) -> Int, a: Int, b: Int) {
+    print(mathCalculation(a,b))
+}
+
+printMathResult(mathCalculation: addTwoInts, a: 2, b: 1)
+
+/********************************************************/
