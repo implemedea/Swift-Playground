@@ -406,3 +406,146 @@ func printMathResult(mathFunction:(Int, Int) -> Int, a: Int, b: Int) {
 printMathResult(mathFunction: addTwoInts, a: 2, b: 1)
 
 /********************************************************/
+
+@objc
+protocol DataSource {
+    var sourceName: String {get set}
+    func getData() -> Array<String>
+    @objc optional
+    func addData(book: String)
+}
+
+class Library: DataSource {
+    var associatedVariable = "hello"
+    var sourceName: String = "public library"
+    var books: Array<String> = ["book1", "book2"]
+    func getData() -> Array<String> {
+        return books
+    }
+    
+    func addData(book: String) {
+        books.append(book)
+    }
+}
+
+var library: DataSource = Library()
+library.addData?(book: "book3")
+print(library.getData())
+print(library.sourceName)
+
+/********************************************************/
+
+/// Generic function
+/// - Parameters:
+///   - choice1: generic input param 1
+///   - choice2: generic input param 2
+/// - Returns: genric output param
+func randomPicker<T>(choice1: T, choice2: T) -> T{
+    let randomIndexvalue = arc4random_uniform(2)
+    if randomIndexvalue == 1 {
+        return choice1
+    } else {
+        return choice2
+    }
+}
+
+print(randomPicker(choice1: 1, choice2: 3))
+print(randomPicker(choice1: "hello", choice2: "world"))
+
+/********************************************************/
+
+/// Generic type
+struct Stack<T> {
+    var items = [T]()
+    mutating func push(_ item: T) {
+        items.append(item)
+    }
+    mutating func pop() -> T {
+        return items.removeLast()
+    }
+}
+
+var stackOfStrings = Stack<String>()
+stackOfStrings.push("uno")
+print(stackOfStrings.items)
+print(stackOfStrings.pop())
+
+var stackOfStrings1 = Stack<Int>()
+stackOfStrings1.push(1)
+print(stackOfStrings1.items)
+print(stackOfStrings1.pop())
+
+/********************************************************/
+
+/// deinit
+class FileReader {
+    var fileName: String
+    
+    init(fileName: String) {
+        self.fileName = fileName
+        print("Initializing a reader and opening file")
+    }
+    
+    func readNexline() -> String {
+        print("seeking for next line in the file to return")
+        return "line"
+    }
+    
+    deinit {
+        print("deinit is happening")
+        print("memory will be soon deallocated")
+        print("manually closing the opened file")
+    }
+}
+
+var fileReader: FileReader?
+fileReader = FileReader(fileName: "fileName")
+fileReader?.readNexline()
+print(fileReader?.fileName ?? "")
+fileReader = nil
+print(fileReader?.fileName ?? "")
+
+/********************************************************/
+
+/// Resolve strong reference
+class Brother {
+    var name: String
+    weak var sister: Sister?
+    
+    init(brotherName: String) {
+        self.name = brotherName
+        print("instance of brother initialized = \(brotherName)")
+    }
+    
+    deinit {
+        print("instance of brother deinitialized")
+    }
+}
+
+class Sister {
+    var name: String
+    weak var brother: Brother?
+    
+    init(sisterName: String) {
+        self.name = sisterName
+        print("instance of Sister initialized = \(sisterName)")
+    }
+    
+    deinit {
+        print("instance of sister deinitialized")
+    }
+}
+
+var male: Brother?
+var female: Sister?
+
+male = Brother(brotherName: "Ram")
+female = Sister(sisterName: "Jessy")
+
+male?.sister = female
+female?.brother = male
+
+male = nil
+female = nil
+
+/********************************************************/
